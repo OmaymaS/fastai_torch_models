@@ -8,10 +8,15 @@ The included scripts and notebook give an example of prediction/inference in fas
 
 ## Getting started
 
-To use a sample model for the following examples:
+To be able to use the following scripts, add the following:
 
+**Models**
 - add a model trained using fastai and exported as `.pkl`  under `/models`.
 - add the corresponding `.jit` model under `/models`.
+
+Note: you can use the code under [fastai_training_job](https://github.com/OmaymaS/fastai_torch_models/tree/main/fastai_training_job) to train a model.
+
+**Images**
 - add few images under `images/{your_dir}`.
 
 ## Examples (scripts)
