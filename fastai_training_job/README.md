@@ -17,7 +17,7 @@ TRAINING_APP_FOLDER=train_job_image
 gcloud builds submit --tag $IMAGE_URI $TRAINING_APP_FOLDER
 ```
 
-## 2- Trigger training job 
+### 2- Trigger training job 
 
 To trigger a sample training job use:
 
