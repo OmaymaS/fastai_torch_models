@@ -1,4 +1,4 @@
-# fastai - torch examples
+## fastai multi-class multi-label classififcation example
 
 ## Local training
 
