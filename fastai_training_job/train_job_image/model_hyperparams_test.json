@@ -1,0 +1,10 @@
+{
+    "TAG_COLUMN": "tag",
+    "RESIZE_VALUE": 64,
+    "METHOD": "squish",
+    "FREEZE_EPOCHS": 1,
+    "BASE_LR": 0.002,
+    "EPOCHS": 0,
+    "ARCH_RESNET": "resnet34",
+    "TEST_THR_DEFAULT": 0.5
+}
