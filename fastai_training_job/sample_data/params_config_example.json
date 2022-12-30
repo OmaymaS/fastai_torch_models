@@ -6,6 +6,5 @@
     "FREEZE_EPOCHS": 2,
     "BASE_LR": 0.002,
     "EPOCHS": 4,
-    "ARCH_RESNET": "resnet34",
-    "TEST_THR_DEFAULT": 0.5
+    "ARCH_RESNET": "resnet34"
 }
