@@ -2,7 +2,21 @@
 
 This directory includes an example of a multi-class multi-label classification using fastai.
 
-Note that the data is expected to be in the form provided under `sample_data`.
+Note that the training/validation data is expected to be in the format provided under `sample_data`.
+
+```
+$DATA_DIR
+│───data_train_valid.csv
+│───data_test.csv
+│───images_train_valid
+│   │   246.jpeg
+│   │   304.jpeg
+│       ....
+└───images_test
+    │   2484.jpeg
+    │   2104.jpeg
+        ....
+```
 
 ## Local training
 
@@ -21,7 +35,7 @@ python train_job_image/train.py \
 
 ## GCP training on vertexai
 
-An example of bhuilding a GCR image then triggering training on vertexai. 
+An example of building a GCR image then triggering training on vertexai. 
 
 ### 1- Build image
 
@@ -41,19 +55,6 @@ gcloud builds submit --tag $IMAGE_URI $TRAINING_APP_FOLDER
 
 The training data paremeters  `--training_dataset_path` and `--training_images_path` should refer to `data_train_valid.csv` and raw images prefix `images_train_valid` correspondingly with the format shown under `sample_data`.
 
-```
-$DATA_VERSION
-│───data_train_valid.csv
-│───data_test.csv
-│───images_train_valid
-│   │   246.jpeg
-│   │   304.jpeg
-│       ....
-└───images_test
-    │   2484.jpeg
-    │   2104.jpeg
-        ....
-```
 
 **Triggering the job**
 
