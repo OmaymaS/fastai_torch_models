@@ -6,11 +6,7 @@ import fire
 import pandas as pd
 from fastai.vision.all import *
 
-from test_model_utils import *
-
 training_timestamp = time.strftime("%Y%m%d-%H%M%S")
-
-TEST_THR_LIST = [x / 10 for x in range(11)]
 
 
 def train_evaluate(
@@ -42,6 +38,7 @@ def train_evaluate(
         model_config_dict = json.load(model_config_json)
         print(f"hyperparameters: {model_config_dict}")
 
+    print(model_config_dict)
     ## include specified tags if available, otherwise sue all
     if "TAGS" in model_config_dict:
         TAG_LIST = [
@@ -54,6 +51,7 @@ def train_evaluate(
     ## read training data csv
     print("Reading csv ...")
     df_train = pd.read_csv(training_dataset_path)
+ 
     if TAG_LIST:
         df_train = df_train[df_train["tag"].isin(TAG_LIST)]
 
@@ -74,6 +72,9 @@ def train_evaluate(
 
     ## load images and transform
     img_dls = img_block.dataloaders(df_train)
+
+    # print(len(img_dls.valid_ds))
+    # print(len(img_dls.train_ds))
 
     ## train
     print("Starting training...")
@@ -96,36 +97,11 @@ def train_evaluate(
 
     ## get final model metrics
     accuracy_multi_train = model_multi.recorder.metrics[0].value.item()
-
-    ## TEST DATA METRICS -----------------------------------
-    ## if test data is provided and test_step is True
-    if test_step:
-        print("Evaluating model on test data")
-        if testing_images_path.startswith("gs://"):
-            testing_images_path = testing_images_path.replace("gs://", "/gcs/")
-
-        metrics_test = predict_calculate_classification_metrics(
-            model_trained=model_multi,
-            testing_images_path=testing_images_path,
-            testing_dataset_path=testing_dataset_path,
-            tag_column=model_config_dict["TAG_COLUMN"],
-            tag_list=TAG_LIST,
-            test_threshold_list=TEST_THR_LIST,
-        )
-
-        ## append metrics to log
-        metrics_log["test_metrics"] = metrics_test
-        metrics_log["test_dataset"] = testing_dataset_path
-        metrics_log["train_timestamp"] = training_timestamp
-        metrics_log["train_metrics"] = {
-            "fasti_metrics": {"accuracy_multi_train_default": accuracy_multi_train}
-        }
-    else:
-        metrics_log = {
-            "fasti_metrics": {"accuracy_multi_train_default": accuracy_multi_train}
-        }
-    ## -------------------------------------------------------------
-
+    
+    metrics_log["train_metrics"] = {
+        "fasti_metrics": {"accuracy_multi_train_default": accuracy_multi_train}
+    }
+    
     ## save metrics
     print("Saving metrics")
     metrics_log_path = f"{job_subdir_gcs_export}/metrics_log.json"
