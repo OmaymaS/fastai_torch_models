@@ -1,6 +1,6 @@
 ## fastai multi-class multi-label classififcation example
 
-This directory includes an example of a multi-class multi-label classififcation using fastai.
+This directory includes an example of a multi-class multi-label classification using fastai.
 
 Note that the data is expected to be in the form provided under `sample_data`.
 
